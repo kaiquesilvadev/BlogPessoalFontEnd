@@ -7,7 +7,7 @@ import UserLogin from '../../models/UserLogin';
 import './Login.css';
 
 function Login() {
-    let navigate = useNavigate();
+    const navigate = useNavigate();
     const [token, setToken] = useLocalStorage('token');
     const [userLogin, setUserLogin] = useState<UserLogin>(
         {
@@ -16,32 +16,32 @@ function Login() {
             senha: '',
             token: ''
         }
-        )
+    )
 
-        function updatedModel(e: ChangeEvent<HTMLInputElement>) {
+    function updatedModel(e: ChangeEvent<HTMLInputElement>) {
 
-            setUserLogin({
-                ...userLogin,
-                [e.target.name]: e.target.value
-            })
+        setUserLogin({
+            ...userLogin,
+            [e.target.name]: e.target.value
+        })
+    }
+
+    useEffect(() => {
+        if (token != '') {
+            navigate('/home')
         }
+    }, [token])
 
-            useEffect(()=>{
-                if(token != ''){
-                    navigate('/home')
-                }
-            }, [token])
+    async function onSubmit(e: ChangeEvent<HTMLFormElement>) {
+        e.preventDefault();
+        try {
+           await login(`/usuarios/logar`, userLogin, setToken)
 
-        async function onSubmit(e: ChangeEvent<HTMLFormElement>){
-            e.preventDefault();
-            try{
-                await login(`/usuarios/logar`, userLogin, setToken)
-
-                alert('Usuário logado com sucesso!');
-            }catch(error){
-                alert('Dados do usuário inconsistentes. Erro ao logar!');
-            }
+            alert('Usuário logado com sucesso!');
+        } catch (error) {
+            alert('Dados do usuário inconsistentes. Erro ao logar!');
         }
+    }
 
     return (
         <Grid container direction='row' justifyContent='center' alignItems='center'>
