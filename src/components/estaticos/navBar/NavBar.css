@@ -1,9 +1,8 @@
 .cursor{
     cursor: pointer;
+    color: white;
 }
 
-.Link-logar{
+.text-decorator-none{
     text-decoration: none;
-    color: white;
-    font-weight: normal;
 }

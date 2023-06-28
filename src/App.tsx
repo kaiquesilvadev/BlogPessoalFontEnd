@@ -2,7 +2,7 @@ import Home from './paginas/home/Home';
 import './App.css'
 import NavBar from './components/estaticos/navBar/NavBar';
 import Footer from './components/estaticos/footer/Footer';
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './paginas/login/Login';
 import CadastroUsuario from './paginas/cadastroUsuario/CadastroUsuario'
 import ListaTema from './components/temas/listaTema/ListaTema';
@@ -11,15 +11,17 @@ import CadastroPost from './components/postagens/cadastroPost/CadastroPost';
 import CadastroTema from './components/temas/cadastroTema/CadastroTema';
 import DeletarPostagem from './components/postagens/deletarPostagem/DeletarPostagem';
 import DeletarTema from './components/temas/deletarTema/DeletarTema';
-
+import { Provider } from 'react-redux';
+import store from './store/store';
 
 function App() {
   return (
-    <>
-      <BrowserRouter>
+    <Provider store={store}>
+      <Router>
         <NavBar />
-        <div style={{ minHeight: '100vh' }}>
-          <Routes> // Antigo Switch
+       
+          <div style={{ minHeight: '100vh' }}>
+          <Routes>
 
             <Route path="/" element={<Login />} />
 
@@ -44,13 +46,12 @@ function App() {
             <Route path="/deletarPostagem/:id" element={<DeletarPostagem />} />
 
             <Route path="/deletarTema/:id" element={<DeletarTema />} />
-
-
-          </Routes>
-        </div>
+            </Routes>
+          </div>
+      
         <Footer />
-      </BrowserRouter>
-    </>
+      </Router>
+    </Provider>
   );
 }
 
