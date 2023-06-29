@@ -1,29 +1,38 @@
 import React, { useEffect } from 'react';
-import { Grid, Box, Typography, Button } from "@material-ui/core";
-import './Home.css'
-import TebPostagem from '../../components/postagens/tebPostagem/TabPostagem'
-import ModalPostagem from "../../components/postagens/modalPostagem/ModelPostagem";
+import {Typography, Grid, Button} from '@material-ui/core';
+import {Box} from '@mui/material';
+import TabPostagem from '../../components/postagens/tebPostagem/TabPostagem';
+// import ModalPostagem from '../../components/postagens/modalPostagem/ModelPostagem';
+import './Home.css';
 import { useNavigate } from 'react-router';
 import { useSelector } from 'react-redux';
 import { TokenState } from '../../store/tokens/tokensReducer';
 import { Link } from 'react-router-dom';
-
+import { toast } from 'react-toastify';
 
 function Home() {
-
 
     let navigate = useNavigate();
     const token = useSelector<TokenState, TokenState["tokens"]>(
         (state) => state.tokens
-    );
-
+      );
+    
     useEffect(() => {
-        if (token == "") {
-            alert("Você precisa estar logado")
-            navigate("/login")
-
-        }
-    }, [token])
+      if (token == "") {
+        toast.error('Você precisa estar logado', {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: false,
+            theme: "colored",
+            progress: undefined,
+        });
+        navigate("/login")
+  
+      }
+  }, [token])
     return (
         <>
             <Grid container direction="row" justifyContent="center" alignItems="center" className='caixa'>
@@ -34,7 +43,7 @@ function Home() {
                     </Box>
                     <Box display="flex" justifyContent="center">
                         <Box marginRight={1}>
-                            <ModalPostagem />
+                            {/* <ModalPostagem /> */}
                         </Box>
                         <Link to="/posts" className="text-decorator-none">
                             <Button variant="outlined" className='botao'>Ver Postagens</Button>
@@ -45,7 +54,7 @@ function Home() {
                     <img src="https://i.imgur.com/H88yIo2.png" alt="" width="500px" height="500px" />
                 </Grid>
                 <Grid xs={12} className='postagens'>
-                    <TebPostagem />
+                    <TabPostagem />
                 </Grid>
             </Grid>
         </>

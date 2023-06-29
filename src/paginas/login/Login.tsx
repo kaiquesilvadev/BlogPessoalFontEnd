@@ -1,15 +1,16 @@
 import React, { useState, useEffect, ChangeEvent } from 'react';
-import { Grid, Box, Typography, TextField, Button } from '@material-ui/core';
+import { Grid, Typography, TextField, Button } from '@material-ui/core';
+import {Box} from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import { login } from '../../services/Service';
 import UserLogin from '../../models/UserLogin';
 import './Login.css';
 import { useDispatch } from 'react-redux';
-import { addToken} from '../../store/tokens/actions'
-
+import { addToken } from "../../store/tokens/actions";
+import { toast } from 'react-toastify';
 
 function Login() {
-    const navigate = useNavigate();
+    let navigate = useNavigate();
     const dispatch = useDispatch();
     const [token, setToken] = useState('');
     const [userLogin, setUserLogin] = useState<UserLogin>(
@@ -19,33 +20,50 @@ function Login() {
             senha: '',
             token: ''
         }
-    )
+        )
 
-    function updatedModel(e: ChangeEvent<HTMLInputElement>) {
+        function updatedModel(e: ChangeEvent<HTMLInputElement>) {
 
-        setUserLogin({
-            ...userLogin,
-            [e.target.name]: e.target.value
-        })
-    }
-
-    useEffect(() => {
-        if (token != '') {
-            dispatch(addToken(token));
-            navigate('/home')
+            setUserLogin({
+                ...userLogin,
+                [e.target.name]: e.target.value
+            })
         }
-    }, [token])
 
-    async function onSubmit(e: ChangeEvent<HTMLFormElement>) {
-        e.preventDefault();
-        try {
-           await login(`/usuarios/logar`, userLogin, setToken)
+            useEffect(()=>{
+                if(token != ''){
+                    dispatch(addToken(token));
+                    navigate('/home')
+                }
+            }, [token])
 
-            alert('Usuário logado com sucesso!');
-        } catch (error) {
-            alert('Dados do usuário inconsistentes. Erro ao logar!');
+        async function onSubmit(e: ChangeEvent<HTMLFormElement>){
+            e.preventDefault();
+            try{
+                await login(`/usuarios/logar`, userLogin, setToken)
+                toast.success('Usuário logado com sucesso!', {
+                    position: "top-right",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: false,
+                    theme: "colored",
+                    progress: undefined,
+                    });
+            }catch(error){
+                toast.error('Dados do usuário inconsistentes. Erro ao logar!', {
+                    position: "top-right",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: false,
+                    theme: "colored",
+                    progress: undefined,
+                    });
+            }
         }
-    }
 
     return (
         <Grid container direction='row' justifyContent='center' alignItems='center'>
