@@ -2,6 +2,16 @@
 
 Bem-vindo ao Blog Pessoal! Este é um projeto desenvolvido com React, utilizando o gerenciador de pacotes npm, e possui uma API em Java construída com o framework Spring Boot. Trata-se de um blog onde os usuários podem entrar, fazer login, criar postagens, atualizá-las e excluí-las.
 
+
+## Deploy
+
+O projeto está atualmente implantado no seguinte endereço:
+
+[Link do Deploy](https://blog-pessoal-font-end.vercel.app/)
+
+**Observação**: Como o projeto utiliza uma hospedagem gratuita para armazenar a API, pode haver variações de desempenho e tempo de resposta.
+
+
 ## Recursos do Projeto
 
 - **Autenticação de Usuário**: Os usuários podem se cadastrar e fazer login no blog, permitindo que apenas usuários autenticados realizem ações como criar, atualizar e excluir postagens.
