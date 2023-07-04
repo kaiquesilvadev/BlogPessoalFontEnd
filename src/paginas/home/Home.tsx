@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import {Typography, Grid, Button} from '@material-ui/core';
 import {Box} from '@mui/material';
 import TabPostagem from '../../components/postagens/tebPostagem/TabPostagem';
-// import ModalPostagem from '../../components/postagens/modalPostagem/ModelPostagem';
+import ModalPostagem from '../../components/postagens/modalPostagem/ModelPostagem';
 import './Home.css';
 import { useNavigate } from 'react-router';
 import { useSelector } from 'react-redux';
@@ -43,7 +43,7 @@ function Home() {
                     </Box>
                     <Box display="flex" justifyContent="center">
                         <Box marginRight={1}>
-                            {/* <ModalPostagem /> */}
+                             <ModalPostagem /> 
                         </Box>
                         <Link to="/posts" className="text-decorator-none">
                             <Button variant="outlined" className='botao'>Ver Postagens</Button>
